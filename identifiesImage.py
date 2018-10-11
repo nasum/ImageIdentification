@@ -100,19 +100,19 @@ def identifies_img(img_src):
     med_result = cal_diff(can_img, med_can_img)
     color_result = get_color(img_src)
     score = cal_score(gau_result, med_result, color_result)
-    print("score :", round(score, 3) ,end=" -->")
     if score >= 0.5:
-        return "illust"
+        type = "illust"
     else:
-        return "picture"
+        type = "picture"
+    return type, score
 
 if __name__ == "__main__":
-    argv = sys.argv    
+    argv = sys.argv
     if len(argv) != 2:
         print("argument error")
         sys.exit()
     
     img_name = argv[1]
     img_src = resize_img(img_name)
-    result = identifies_img(img_src)
-    print(result)
+    type, score = identifies_img(img_src)
+    print(f'{img_name}, {type}, {score}')
